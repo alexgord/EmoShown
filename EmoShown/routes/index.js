@@ -30,7 +30,7 @@ router.post('/graph', function(req, res)
     
     request({uri: text}, function(err, response, body)
     {
-        var sent = sentiment(striptags(body));
+        var sent = sentiment(body.replace(/(<([^>]+)>)/ig," ").replace(/\s+/g, ' '));//striptags(body));
         //sent.words
         for(var i = 0; i < sent.words.length; ++i)
         {
@@ -92,7 +92,7 @@ router.post('/result', function(req, res)
     
     request({uri: text}, function(err, response, body)
     {
-        var sent = sentiment(striptags(body));
+        var sent = sentiment(body.replace(/(<([^>]+)>)/ig," ").replace(/\s+/g, ' '));
         var picture = "";
         if(Math.abs(sent.comparative) < 0.01)
         {
@@ -128,7 +128,7 @@ router.post('/test-page', function(req, res) {
     
     request({uri: text}, function(err, response, body)
     {
-        var sent = sentiment(striptags(body));
+        var sent = sentiment(body.replace(/(<([^>]+)>)/ig," ").replace(/\s+/g, ' '));
         
         var str = JSON.stringify(sent);
         str += "<br>Sent score:<br>";
