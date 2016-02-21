@@ -9,3 +9,6 @@ block content
     div(id="response")
         !{responsetext}
   a(href="/") Go back
+  form(name="graphform", action="/graph", method="post")
+    input(type="hidden", value="#{url}", name="url")
+    input(type="submit", id="getgraph", value="graph")

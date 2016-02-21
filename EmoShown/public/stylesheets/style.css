@@ -85,12 +85,19 @@ a {
    background: #1b435e;
    }
    
-   h1
-   {
-       font-size:60px;
-   }
+h1
+{
+    font-size:60px;
+}
+
+#welcome
+{
+    font-size:50px;
+}
    
-   #welcome
-   {
-       font-size:50px;
-   }
+#getgraph
+{
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+}

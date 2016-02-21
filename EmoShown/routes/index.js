@@ -4,6 +4,7 @@ var sentiment = require('sentiment');
 var request = require('request');
 var striptags = require('striptags');
 var lib = require('../lib.js');
+var afinn = require("../AFINN.json");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -18,6 +19,62 @@ router.get('/test-input', function(req, res, next) {
 /* GET home page. */
 router.get('/hello', function(req, res, next) {
   res.send('Hello world!');
+});
+
+router.post('/graph', function(req, res)
+{
+    var text = req.body.url;
+    var wordinfo = [];
+    
+    
+    
+    request({uri: text}, function(err, response, body)
+    {
+        var sent = sentiment(striptags(body));
+        //sent.words
+        for(var i = 0; i < sent.words.length; ++i)
+        {
+            var c = wordinfo.filter(function (el) {
+            return el.word == sent.words[i];
+            }).length;
+            if(c == 0)
+            {
+                var item = afinn[sent.words[i]];
+                if (typeof item === 'undefined')
+                {
+                    continue;
+                }
+                wordinfo.push({word: sent.words[i] , count: 1, value : item});
+            }
+            else
+            {
+                for(var j = 0; j < wordinfo.length; ++j)
+                {
+                    if(wordinfo[j].word == sent.words[j])
+                    {
+                        wordinfo[j].count = wordinfo[j].count + 1;
+                    }
+                }
+            }
+        }
+        
+        var arr = [
+                    ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'],
+                    ['Words',    null,                 0,                               0],
+                    //['America',   'Words',             11,                               10],
+                    //['Europe',    'Words',             42,                               -11],
+                    //['Asia',      'Words',             36,                               4],
+                    //['Australia', 'Words',             0,                               0],
+                    //['Africa',    'Words',             210,                               0]
+                ];
+                
+        for(var k = 0; k < wordinfo.length; ++k)
+        {
+            arr.push([wordinfo[k].word, 'Words', wordinfo[k].count, wordinfo[k].value ]);
+        }
+        
+        res.render('graph', {title: "Graph" , arr: JSON.stringify(arr)});
+    });
 });
 
 router.post('/result', function(req, res)
@@ -60,7 +117,8 @@ router.post('/result', function(req, res)
         
         res.render('result', { title: 'Score',
             picture:picture, value: value.toFixed(2),
-            responsetext: response});
+            responsetext: response,
+            url: text});
     });
 });
 
