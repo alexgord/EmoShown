@@ -2,7 +2,10 @@ extends layout
 
 block content
   h1= title
-  p #{title}
-  h2 #{value} / 100
-  img(src= "#{picture}" )
+  div(id="centering")
+    div(id="number") #{value} / 100
+    div(id="duckpicture")
+        img(src= "#{picture}")
+    div(id="response")
+        !{responsetext}
       
