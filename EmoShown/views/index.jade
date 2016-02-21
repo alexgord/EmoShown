@@ -2,8 +2,11 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  div(id="welcome") Welcome to #{title}
+  <br>
   form(name="login", action="/result", method="post")
-      input(type="text", name="sample")
-      input(type="submit", value="send")
+      div(id="formdiv")
+        span(id="submitdiv")
+            input(type="text", name="sample", id="sample", placeholder="URL. Eg: www.something.com")
+        input(type="submit", value="send", class="button")
       

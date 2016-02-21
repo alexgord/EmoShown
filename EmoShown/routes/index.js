@@ -7,7 +7,7 @@ var lib = require('../lib.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'EmoShown' });
 });
 
 /* GET home page. */
@@ -40,19 +40,19 @@ router.post('/result', function(req, res)
         if(Math.abs(sent.comparative) < 0.01)
         {
             picture = "images/neutral.png";
-            response = neutralResponses[lib.getRandomInt(0, neutralResponses.length)];
+            response = neutralResponses[lib.getRandomInt(0, neutralResponses.length - 1)];
         }
         else
         {
             if(sent.comparative > 0)
             {
                 picture = "images/happy.png";
-                response = positiveResponses[lib.getRandomInt(0, positiveResponses.length)];
+                response = positiveResponses[lib.getRandomInt(0, positiveResponses.length - 1)];
             }
             else
             {
                 picture = "images/sad.png";
-                response = negativeResponses[lib.getRandomInt(0, negativeResponses.length)];
+                response = negativeResponses[lib.getRandomInt(0, negativeResponses.length - 1)];
             }
         }
         
