@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Treemap - EmoShow</title>
+
+    <!-- CSS Files -->
+    <link type="text/css" href="css/base.css" rel="stylesheet" />
+    <link type="text/css" href="css/Treemap.css" rel="stylesheet" />
+
+
+    <!-- DOMTreeMap Library File -->
+    <script language="javascript" type="text/javascript" src="../DOMTreeMap.js"></script>
+
+    <!-- Example File -->
+    <script language="javascript" type="text/javascript" src="GraphJS.js"></script>
+</head>
+
+<body onload="init();">
+<div id="searchContainer">
+    
+</div>
+<div id="container">
+
+    <div id="left-container">
+
+
+
+        <div class="text">
+            <h4>
+                Word Type Treemap
+            </h4>
+            Size of boxes are decided based on score of the word and count of words <br /><br />
+            <img src="images/colorgrad.png" style="max-width: 150px;"><br /><br />
+            <b>Green</b> Positive word score<br /><br />
+            <b>Red</b> Negative word score<br /><br />
+            *Hover over boxes for further information breakdown*
+
+        </div>
+
+        <div id="id-list"></div>
+
+
+        <!--<div style="text-align:center;"><a href="example3.js">See the Example Code</a></div>-->
+    </div>
+
+    <div id="center-container">
+        <div id="infovis"></div>
+    </div>
+
+    <div id="right-container">
+    </div>
+
+    <div id="log"></div>
+</div>
+</body>
+</html>
