@@ -113,7 +113,7 @@ router.post('/result', function(req, res)
             }
         }
         
-        var value = (sent.comparative + 5) * 10;
+        var value = (sent.comparative + 5.0) * 10.0;
         
         res.render('result', { title: 'Score',
             picture:picture, value: value.toFixed(2),
