@@ -5,6 +5,7 @@ var request = require('request');
 var striptags = require('striptags');
 var lib = require('../lib.js');
 var afinn = require("../AFINN.json");
+var url = require('url');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -26,9 +27,19 @@ router.post('/graph', function(req, res)
     var text = req.body.url;
     var wordinfo = [];
     
+    if(text.indexOf("http://") != 0 && text.indexOf("https://") != 0 
+        && text.indexOf("http//") != 0 && text.indexOf("https//") != 0)
+    {
+        text = "http://" + text;
+    }
     
+    var uri = url.format(url.parse(text));
     
-    request({uri: text}, function(err, response, body)
+    console.log("---------------------------");
+    
+    console.log(uri);
+    
+    request({uri: uri}, function(err, response, body)
     {
         var sent = sentiment(body.replace(/(<([^>]+)>)/ig," ").replace(/\s+/g, ' '));//striptags(body));
         //sent.words
@@ -90,7 +101,19 @@ router.post('/result', function(req, res)
     
     var response = "";
     
-    request({uri: text}, function(err, response, body)
+    if(text.indexOf("http://") != 0 && text.indexOf("https://") != 0 
+        && text.indexOf("http//") != 0 && text.indexOf("https//") != 0)
+    {
+        text = "http://" + text;
+    }
+    
+    var uri = url.format(url.parse(text));
+    
+    console.log("---------------------------");
+    
+    console.log(uri);
+    
+    request({uri: uri}, function(err, response, body)
     {
         var sent = sentiment(body.replace(/(<([^>]+)>)/ig," ").replace(/\s+/g, ' '));
         var picture = "";
@@ -118,7 +141,7 @@ router.post('/result', function(req, res)
         res.render('result', { title: 'Score',
             picture:picture, value: value.toFixed(2),
             responsetext: response,
-            url: text});
+            url: uri});
     });
 });
 
