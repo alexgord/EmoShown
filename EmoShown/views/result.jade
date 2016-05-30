@@ -3,7 +3,8 @@ extends layout
 block content
   h1= title
   div(id="centering")
-    div(id="number") #{value} / 100
+    div(id="number") #{value}
+    div(id="average") Average: #{average} / 100
     div(id="duckpicture")
         img(src= "#{picture}")
     div(id="response")

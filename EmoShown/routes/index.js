@@ -117,14 +117,14 @@ router.post('/result', function(req, res)
     {
         var sent = sentiment(body.replace(/(<([^>]+)>)/ig," ").replace(/\s+/g, ' '));
         var picture = "";
-        if(Math.abs(sent.comparative) < 0.01)
+        if(Math.abs(sent.score) < 10)
         {
             picture = "images/neutral.png";
             response = neutralResponses[lib.getRandomInt(0, neutralResponses.length - 1)];
         }
         else
         {
-            if(sent.comparative > 0)
+            if(sent.score > 0)
             {
                 picture = "images/happy.png";
                 response = positiveResponses[lib.getRandomInt(0, positiveResponses.length - 1)];
@@ -136,10 +136,14 @@ router.post('/result', function(req, res)
             }
         }
         
-        var value = (sent.comparative + 5.0) * 10.0;
+        console.log(JSON.stringify(sent));
+        
+        var value = sent.score;//(sent.comparative + 5.0) * 10.0;
+        var average = ((sent.comparative + 5.0) * 10.0).toFixed(2);
         
         res.render('result', { title: 'Score',
-            picture:picture, value: value.toFixed(2),
+            picture:picture, value: value,
+            average: average,
             responsetext: response,
             url: uri});
     });
